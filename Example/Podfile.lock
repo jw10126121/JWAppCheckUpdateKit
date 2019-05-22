@@ -1,0 +1,16 @@
+PODS:
+  - JWAppCheckUpdateKit (0.1.0)
+
+DEPENDENCIES:
+  - JWAppCheckUpdateKit (from `../`)
+
+EXTERNAL SOURCES:
+  JWAppCheckUpdateKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  JWAppCheckUpdateKit: fd7908a5e032fbd40d5e4abafc53bb3ef7c2df78
+
+PODFILE CHECKSUM: 680e09d97a7ceb0d9b2ae59b19bcddbd60009aad
+
+COCOAPODS: 1.7.0.rc.2
