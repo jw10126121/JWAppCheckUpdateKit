@@ -1,0 +1,55 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "unit test"
+  lane :test do
+  	scan(
+    	workspace: "Example/JWAppCheckUpdateKit.xcworkspace", 
+    	scheme: "JWAppCheckUpdateKit_Tests", 
+    	devices: ["iPhone 8"])
+  	UI.message("Test Succeeded")
+  end
+
+  desc "release new version"
+  lane :release do |options|
+    target_version = options[:version]
+    raise "The version is missed." if target_version.nil?
+
+    scan(
+    	workspace: "Example/JWAppCheckUpdateKit.xcworkspace", 
+    	scheme: "JWAppCheckUpdateKit_Tests", 
+    	devices: ["iPhone 8"])
+
+    version_bump_podspec(
+    	path: "JWAppCheckUpdateKit.podspec", 
+    	version_number: target_version)
+
+    git_add(path: ["./JWAppCheckUpdateKit.podspec", "./fastlane"])
+    git_commit(
+      path: ["./JWAppCheckUpdateKit.podspec", "./fastlane"], 
+      message: "release #{target_version} version")
+    
+    add_git_tag tag: target_version
+    push_to_git_remote
+
+    pod_push
+    
+  end
+
+end
