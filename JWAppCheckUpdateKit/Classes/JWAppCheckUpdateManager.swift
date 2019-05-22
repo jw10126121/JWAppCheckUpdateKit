@@ -29,9 +29,9 @@ public class JWAppCheckUpdateManager {
     /// 渠道
     private let channel: JWAppUpdateChannel
     
-    init(channel: JWAppUpdateChannel) { self.channel = channel }
+    public init(channel: JWAppUpdateChannel) { self.channel = channel }
     
-    func update() {
+    public func update() {
         
         switch channel {
         case .fir:
