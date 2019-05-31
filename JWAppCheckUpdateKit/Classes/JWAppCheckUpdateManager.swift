@@ -15,12 +15,20 @@ public enum JWAppUpdateChannel {
     
     case fir(appId: String, token: String)
     
+//    case appStore(appId: String)
+    
     var requestApi: String {
         switch self {
         case let .fir(appId, token):
             return "http://api.fir.im/apps/latest/\(appId)?api_token=\(token)"
+//        case let .appStore(appId: appId):
+//            return "https://itunes.apple.com/cn/app/id\(appId)"
         }
     }
+    
+    
+    
+    
 }
 
 /// app更新提示管理类
@@ -37,6 +45,9 @@ public class JWAppCheckUpdateManager {
         case .fir:
             firUpdate(requestApi: channel.requestApi)
             break
+//        case .appStore:
+//            appStoreUpdate(requestApi: channel.requestApi)
+//            break
         }
         
     }
@@ -97,6 +108,10 @@ public class JWAppCheckUpdateManager {
                 }
             }
             }.resume()
+    }
+    
+    private func appStoreUpdate(requestApi: String) {
+        
     }
     
     
